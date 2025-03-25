@@ -74,8 +74,50 @@ def refresh_access_token(refresh_token):
         return None, None
 
 
+def get_user_info2():
+    token_data = load_and_decrypt_token()
+    if token_data:
+        try:
+            creds = json.loads(token_data)
+            access_token = creds.get("access_token")
+            refresh_token = creds.get("refresh_token")
 
+            # ✅ Nếu access token hết hạn, thử làm mới bằng refresh token
+            if not is_token_valid(access_token) and refresh_token:
+                print("🔄 Token hết hạn, thử làm mới bằng refresh token...")
+                new_access_token, expires_in = refresh_access_token(refresh_token)
+                if new_access_token:
+                    creds["access_token"] = new_access_token
+                    creds["expires_in"] = expires_in
+                    encrypt_and_save_token(json.dumps(creds))  # 🔒 Lưu lại token
 
+                    # 🔹 Khi làm mới token, KHÔNG có `id_token`, cần yêu cầu đăng nhập mới
+                    user_info = get_user_info(creds["access_token"])
+                    if user_info:
+                        print(f"📧 Email666: {user_info['email']}")
+                        return user_info
+                    else:
+                        print("⚠ Không lấy được thông tin user từ Google API!")
+                        return None
+
+                else:
+                    return None
+        except json.JSONDecodeError:
+            print("❌ Token lỗi, yêu cầu đăng nhập lại.")
+            return None
+        if not creds:
+            # 🔹 Yêu cầu đăng nhập mới
+            print("⚠ Không lấy được thông tin user từ ID token!")
+            return None
+        else:
+            # 🔹 Nếu token còn hợp lệ, giải mã ID token lấy thông tin user
+            user_info = get_user_info(creds["access_token"])
+            if user_info:
+                print(f"📧 Email878: {user_info['email']}")
+                return user_info
+            else:
+                print("⚠ Không lấy được thông tin user từ Google API!")
+                return None
 def google_login():
     """🔑 Đăng nhập Google hoặc làm mới token nếu có."""
     token_data = load_and_decrypt_token()
@@ -99,7 +141,7 @@ def google_login():
                     # 🔹 Khi làm mới token, KHÔNG có `id_token`, cần yêu cầu đăng nhập mới
                     user_info = get_user_info(creds["access_token"])
                     if user_info:
-                        print(f"📧 Email: {user_info['email']}")
+                        print(f"📧 Emailxxx: {user_info['email']}")
                         return user_info
                     else:
                         print("⚠ Không lấy được thông tin user từ Google API!")
@@ -132,7 +174,7 @@ def google_login():
             # 🏆 Giải mã ID token lấy thông tin user
             user_info = get_user_info(creds_obj.token)
             if user_info:
-                print(f"📧 Email: {user_info['email']}")
+                print(f"📧 Email212: {user_info['email']}")
                 return user_info  # ✅ Trả về thông tin user
 
             else:
@@ -147,7 +189,7 @@ def google_login():
         # 🔹 Nếu token còn hợp lệ, giải mã ID token lấy thông tin user
         user_info = get_user_info(creds["access_token"])
         if user_info:
-            print(f"📧 Email: {user_info['email']}")
+            print(f"📧 Email878: {user_info['email']}")
             return user_info
         else:
             print("⚠ Không lấy được thông tin user từ Google API!")

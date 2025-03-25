@@ -12,9 +12,9 @@ class HomeScreen(BaseWidget):
     def __init__(self, navigation):
         super().__init__(navigation)
         self.setWindowTitle("Home")
-
+        self.setFixedSize(500, 300)
         layout = QVBoxLayout(self)
-        btn_a = QPushButton("Google Sheet Ad To Json Ad")
+        btn_a = QPushButton("Tạo Json Ad Pro")
         btn_b = QPushButton("Tính năng B")
         btn_c = QPushButton("Tính năng C")
 

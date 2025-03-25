@@ -30,6 +30,7 @@ class BaseNavigation:
         for widget in self.screen_stack:
             if isinstance(widget, screen_class):
                 self.stack.setCurrentWidget(widget)
+                self.update_window_size(widget)
                 return  # Nếu đã có màn này, chỉ cần chuyển sang
 
         # Nếu chưa có, tạo mới
@@ -38,7 +39,16 @@ class BaseNavigation:
         self.stack.setCurrentWidget(widget)
         self.screen_stack.append(widget)  # Đẩy vào stack
         self.update_window_title()
+        self.update_window_size(widget)
         print(f"Stack = {self.get_current_stack()}")
+
+    def update_window_size(self, widget):
+        """Cập nhật kích thước của cửa sổ theo màn hình hiện tại."""
+        new_width = widget.width()
+        new_height = widget.height()
+
+        # Cập nhật kích thước khung ngoài `QWidget`
+        self.window.resize(new_width, new_height)
 
     def pop_screen(self):
         """Quay về màn trước đó và loại bỏ màn hiện tại."""
