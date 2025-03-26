@@ -8,7 +8,10 @@ class BaseNavigation:
         self.app = QApplication([])
         self.window = QWidget()
         self.window.setWindowTitle("Menu Tools HD")
-
+        screen = QApplication.primaryScreen().geometry()
+        width = screen.width() // 2
+        height = screen.height() // 2
+        self.window.resize(width, height)
         self.stack = QStackedWidget()
         self.screen_stack = []  # Danh sách màn hình theo thứ tự
 
@@ -18,12 +21,9 @@ class BaseNavigation:
         layout = QVBoxLayout(self.window)
         layout.addWidget(self.stack)
         self.window.setLayout(layout)
-
-        screen = QApplication.primaryScreen().geometry()
-        width = screen.width() // 2
-        height = screen.height() // 2
-        self.window.resize(width, height)
         self.window.show()
+
+
 
     def push_screen(self, screen_class, *args):
         """Thêm màn hình mới vào stack bằng class."""
