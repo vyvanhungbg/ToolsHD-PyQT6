@@ -54,8 +54,7 @@ class FeatureConvertJsonAdScreen(BaseWidget):
         super().__init__(navigation)
         self.setWindowTitle("Tạo Json Ad Pro")
         layout = QVBoxLayout()
-        self.setFixedSize(500, 300)
-
+        self.resize(500, 300)
         button_convert_online = QPushButton("Google Sheet -> Json")
 
         button_convert_offline = QPushButton("File Excel -> Json")

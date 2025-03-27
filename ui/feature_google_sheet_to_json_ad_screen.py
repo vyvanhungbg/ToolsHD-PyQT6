@@ -73,7 +73,6 @@ class FeatureGoogleSheetToJsonAdScreen(BaseWidget):
         # 🔹 Thiết lập giao diện
         self.setWindowTitle("Google Sheet Viewer")
         self.resize(800, 800)
-
         # 🔹 Layout chính
         layout = QVBoxLayout()
 
@@ -344,7 +343,7 @@ class FeatureGoogleSheetToJsonAdScreen(BaseWidget):
 
         self.table_view.setModel(model)
         index_ad_format, index_space_name, index_ad_id = find_columns_with_abc(self.table_view)
-        if index_ad_format is not None and index_ad_format != 0  :
+        if index_ad_format is not None and index_ad_format != 0:
             self.col_ad_type.setText(column_letters(index_ad_format + 1))
         else:
             self.col_ad_type.setText("")
@@ -356,6 +355,7 @@ class FeatureGoogleSheetToJsonAdScreen(BaseWidget):
             self.col_space_name.setText(column_letters(index_space_name + 1))
         else:
             self.col_space_name.setText("")
+
 
 SCOPES = [
     "https://www.googleapis.com/auth/spreadsheets.readonly"

@@ -3,6 +3,7 @@ from PyQt6.QtWidgets import QVBoxLayout, QPushButton
 from base.base_widget import BaseWidget
 from login_google import LoginWindow
 from ui.feature_convert_json_ad import FeatureConvertJsonAdScreen
+from ui.feature_preview_json_export_screen import FeaturePreviewJsonExportScreen
 from ui.feature_screen import FeatureScreen
 
 
@@ -22,6 +23,29 @@ class HomeScreen(BaseWidget):
         layout.addWidget(btn_b)
         layout.addWidget(btn_c)
 
+        test_json = """
+            {
+    "name": "John Doe",
+    "age": 30,
+    "email": "johndoe@example.com",
+    "address": {
+        "street": "123 Main St",
+        "city": "New York",
+        "zip": "10001"
+    },
+    "phones": [
+        "+1-202-555-0123",
+        "+1-202-555-0456"
+    ],
+    "isActive": true,
+    "preferences": {
+        "notifications": true,
+        "theme": "dark",
+        "language": "en-US"
+    }
+}
+
+        """
         btn_a.clicked.connect(lambda: self.navigation.push_screen(FeatureConvertJsonAdScreen))
         btn_b.clicked.connect(lambda: self.navigation.push_screen(LoginWindow, ))
-        btn_c.clicked.connect(lambda: self.navigation.push_screen(FeatureScreen, "C"))
+        btn_c.clicked.connect(lambda: self.navigation.push_screen(FeaturePreviewJsonExportScreen, test_json))

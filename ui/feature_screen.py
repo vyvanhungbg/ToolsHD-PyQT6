@@ -1,6 +1,22 @@
-from PyQt6.QtWidgets import QVBoxLayout, QPushButton
+from PyQt6.QtWidgets import QVBoxLayout, QPushButton, QDialog, QLabel
 
 from base.base_widget import BaseWidget
+
+
+class SecondWindow(QDialog):
+    def __init__(self):
+        super().__init__()
+        self.setWindowTitle("Cửa sổ thứ hai")
+        self.setGeometry(150, 150, 400, 300)
+
+        layout = QVBoxLayout()
+        layout.addWidget(QLabel("Đây là cửa sổ thứ hai"))
+        self.setLayout(layout)
+
+
+def open_second_window():
+    second_window = SecondWindow()
+    second_window.exec()
 
 
 class FeatureScreen(BaseWidget):

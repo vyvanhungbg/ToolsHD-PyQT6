@@ -33,8 +33,14 @@ class BaseWidget(QWidget):
 
         screen_geometry = screen.geometry()  # Kích thước màn hình
         widget_geometry = self.frameGeometry()  # Kích thước widget
+        #
+        # x = (screen_geometry.width() - widget_geometry.width()) // 2
+        # y = (screen_geometry.height() - widget_geometry.height()) // 2
 
-        x = (screen_geometry.width() - widget_geometry.width()) // 2
-        y = (screen_geometry.height() - widget_geometry.height()) // 2
+        creen_geometry = screen.geometry()  # Kích thước màn hình
+        window_size = self.size()  # Lấy kích thước thực tế của cửa sổ
+
+        x = (screen_geometry.width() - window_size.width()) // 2
+        y = (screen_geometry.height() - window_size.height()) // 2
 
         self.move(x, y)  # Di chuyển widget đến vị trí trung tâm

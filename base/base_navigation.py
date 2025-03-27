@@ -1,3 +1,4 @@
+from PyQt6.QtCore import QTimer
 from PyQt6.QtWidgets import QApplication, QStackedWidget, QWidget, QVBoxLayout, QPushButton
 
 
@@ -11,6 +12,7 @@ class BaseNavigation:
         screen = QApplication.primaryScreen().geometry()
         width = screen.width() // 2
         height = screen.height() // 2
+        print(f"{width} _ {height}")
         self.window.resize(width, height)
         self.stack = QStackedWidget()
         self.screen_stack = []  # Danh sách màn hình theo thứ tự
@@ -57,6 +59,7 @@ class BaseNavigation:
             self.stack.removeWidget(widget_to_remove)
             widget_to_remove.deleteLater()
             self.stack.setCurrentWidget(self.screen_stack[-1])  # Chuyển về màn trước
+
         self.update_window_title()
         print(f"Stack = {self.get_current_stack()}")
 
